@@ -19,6 +19,13 @@ byte DriveBay2LimitFrontPin = 11;
 byte DriveBay2LimitRearPin = 12;
 
 
+int MotorPump1Pin = A0;
+int MotorPump2Pin = A1;
+int MotorPump3Pin = A2;
+int MotorPump4Pin = A3;
+
+int MotorPumpLimitPin = A4;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -56,7 +63,15 @@ void setup() {
 
   pinMode(DriveBay2MotorAPin, OUTPUT);
   pinMode(DriveBay2MotorBPin, OUTPUT);
+  
+  pinMode(MotorPump1Pin,OUTPUT);
+  pinMode(MotorPump2Pin,OUTPUT);
+  pinMode(MotorPump3Pin,OUTPUT);
+  pinMode(MotorPump4Pin,OUTPUT);
 
+  pinMode(MotorPumpLimitPin,OUTPUT);
+
+  MotorPumpUpdate();
   Serial.println("Arduino Bay Manager Connect");
 }
 
@@ -66,6 +81,18 @@ void loop() {
   DriveBayUpdate();
   DriveLight();
   SerialUpdate();
+}
+// ==================================
+//             MotorPump
+// ==================================
+void MotorPumpUpdate()
+{
+  digitalWrite(MotorPump1Pin,LOW);
+  digitalWrite(MotorPump2Pin,LOW);
+  digitalWrite(MotorPump3Pin,LOW);
+  digitalWrite(MotorPump4Pin,LOW);
+
+  digitalWrite(MotorPumpLimitPin,LOW);
 }
 
 // ==================================
@@ -403,7 +430,9 @@ void fnDriveLight(Adafruit_NeoPixel& Pix, byte bPix, byte& DriveBayDirection, bo
   }
 
 }
-
+// ==================================
+//             DriveLight
+// ==================================
 
 void DriveLight()
 {
